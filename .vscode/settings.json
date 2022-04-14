@@ -3,7 +3,7 @@
    "python.linting.enabled": true,
    "python.linting.pycodestyleEnabled": false,
    "python.linting.flake8Enabled": true,
-   "python.terminal.activateEnvironment": false,
+   "python.terminal.activateEnvironment": true,
    "python.formatting.autopep8Path": "/home/gitpod/.pyenv/shims/autopep8",
    "python.linting.flake8Path": "/home/gitpod/.pyenv/shims/flake8",
    "cornflakes.linter.executablePath": "/home/gitpod/.pyenv/shims/flake8",
@@ -21,6 +21,10 @@
       "**/CVS": true
    },
    "files.autoSave": "off",
-   "workbench.colorTheme": "Visual Studio Dark",
-   "editor.defaultFormatter": "HookyQR.beautify"
+   "workbench.colorTheme": "Default Dark+",
+   "editor.defaultFormatter": "HookyQR.beautify",
+   "python.testing.unittestEnabled": true,
+   "python.testing.pytestEnabled": true,
+   "python.terminal.activateEnvInCurrentTerminal": true,
+   "python.terminal.executeInFileDir": true
 }
