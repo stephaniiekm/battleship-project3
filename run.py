@@ -63,13 +63,12 @@ def create_grid():
         num_of_ships_placed += 1
 
 
-  def print_grid():
+def print_grid():
 
-    global print_grid
+    global grid
     global alphabet
-
+    
     debug_mode = True
-
     alphabet = alphabet[0: len(grid) + 1]
 
     for row in range(len(grid)):
@@ -93,7 +92,7 @@ def create_grid():
     print("")
 
 
-  def try_to_place_ship_on_grid(row, col, direction, length):
+def try_to_place_ship_on_grid(row, col, direction, length):
 
     global grid_size
 
@@ -121,7 +120,7 @@ def create_grid():
     return validate_grid_and_place_ship(start_col, end_col, start_row, end_row)
 
 
-  def accept_valid_bullet_placement():
+def accept_valid_bullet_placement():
 
     global alphabet
     global grid
@@ -156,7 +155,7 @@ def create_grid():
     
     return row, col
 
-  def check_for_ship_sunk(row, col):
+def check_for_ship_sunk(row, col):
 
     global ship_position
     global grid
@@ -173,7 +172,7 @@ def create_grid():
                         return False
     return True
 
-  def shoot_bullet():
+def shoot_bullet():
 
     global grid
     global num_of_ships_sunk
@@ -198,7 +197,7 @@ def create_grid():
     bullets_left -= 1
 
 
-  def check_for_game_over():
+def check_for_game_over():
 
     global num_of_ships_sunk
     global num_of_ships
@@ -213,17 +212,16 @@ def create_grid():
         game_over = True
 
 
-  def main():
-    """Main entry point of application, that runs the game loop"""
-    global game_over
+def main():
 
+ global game_over
 
-    print("------Welcome to Battelships------")
-    print("You got 50 bullets to take down 8 ships, may the battel begin! Best of luck!")
+   print("------Welcome to Battelships------")
+   print("You got 50 bullets to take down 8 ships, may the battel begin! Best of luck!")
 
-    create_grid()
+create_grid()
 
-    while game_over is False:
+while game_over is False:
         print_grid()
         print("Number of ships remaning: " + str(num_of_ships - num_of_ships_sunk))
         print("Number of bullets left: " + str(bullets_left))
