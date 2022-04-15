@@ -31,7 +31,7 @@ game_over = False
 
 
 def create_grid():
-    """Will create a grid 10x10 and randomly place down ships of different sizes in diffrent directions"""
+
     global grid
     global grid_size
     global num_of_ships
@@ -54,10 +54,106 @@ def create_grid():
     ship_position = []
 
     while num_of_ships_placed != num_of_ships:
-        random_row = random.randint(0, rows -1)
-        random_col = random.randint(0, cols -1)
+        random_row = random.randint(0, rows-1)
+        random_col = random.randint(0, cols-1)
         direction = random.choice(["left", "right", "up", "down"])
         ship_size = random.randint(3, 5)
 
     if try_to_place_ship_on_grid(random_row, random_col, direction, ship_size):
-            num_of_ships_placed += 1
+        num_of_ships_placed += 1
+
+
+def print_grid():
+
+    global print_grid
+    global alphabet
+
+    debug_mode = True
+
+    alphabet = alphabet[0: len(grid) + 1]
+
+    for row in range(len(grid)):
+        print(alphabet[row], end=" ")
+
+    for col in range(len(grid[row])):
+        if grid[row][col] == "0":
+            if debug_mode:
+                print("0", end=" ")
+            else:
+                print(".", end=" ")
+        else:
+            print(grid[row][col], end=" ")
+
+    print("")
+    
+    print(" ", end=" ")
+
+    for i in range(len(grid[0])):
+        print(str(i), end=" ")
+    print("")
+
+
+def try_to_place_ship_on_grid(row, col, direction, length):
+
+    global grid_size
+
+    start_row, end_row, start_col, end_col = row, row + 1, col, col + 1
+    if direction == "left":
+        if col - length < 0:
+            return False
+        start_col = col - length + 1
+
+    elif direction == "right":
+        if col + length >= grid_size:
+            return False
+        end_col = col + length
+    
+    elif direction == "up":
+        if row - length < 0:
+            return False
+        start_row = row - length + 1
+    
+    elif direction == "down":
+        if row + length >= grid_size:
+            return False
+        end_row = row + length
+    
+    return validate_grid_and_place_ship(start_col, end_col, start_row, end_row)
+
+
+def accept_valid_bullet_placement():
+
+    global alphabet
+    global grid
+
+    is_valid_placement = False
+    row = -1
+    col = -1
+    while is_valid_placement is False:
+        placement = input("Enter row (A-J) and column (8-9) such as A3: ")
+        placement = placement.upper()
+        if len(placement) <= 0 or len(placement) > 2:
+            print("Error: Please enter only one row and column such as A3")
+            continue
+        row = placement[0]
+        col = placement[1]
+        if not row.isalpha() or not col.isnumeric():
+            print("Error: Please enter letter (A-J) for row and (8-9) column")
+            continue
+        row = alphabet.find(row)
+        if not (-1 < row < grid_size):
+            print("Error: Please enter letter (A-J) for row and (8-9) column")
+            continue
+        col = int(col)
+        if not (-1 < col < grid_size):
+            print("Error: Please enter letter (A-J) for row and (8-9) column")
+            continue
+        if grid[row][col] == "#" or grid[row][col] == "X":
+            print("You have alredy shot a bullet here, choose another spot")
+            continue
+        if grid[row][col] == "." or grid[row][col] == "O":
+            is_valid_placement = True
+    
+    return row, col
+
+
