@@ -156,4 +156,61 @@ def accept_valid_bullet_placement():
     
     return row, col
 
+def check_for_ship_sunk(row, col):
+
+    global ship_position
+    global grid
+
+    for position in ship_position:
+        start_row = position[0]
+        end_row = position[1]
+        start_col = position[2]
+        end_col = position[3]
+        if start_row <= row <= end_row and start_col <= col <= end_col:
+            for r in range(start_row, end_row):
+                for c in range(start_col, end_col):
+                    if grid[r][c] != "X":
+                        return False
+    return True
+
+def shoot_bullet():
+
+    global grid
+    global num_of_ships_sunk
+    global bullets_left
+
+    row, col = accept_valid_bullet_placement()
+    print("")
+    print("----------------------------")
+
+    if grid[row][col] == ".":
+        print("You missed, no ship was shot")
+        grid[row][col] = "#"
+    elif grid[row][col] == "O":
+        print("You hit!", end=" ")
+        grid[row][col] = "X"
+        if check_for_ship_sunk(row, col):
+            print("A ship was completely sunk!")
+            num_of_ships_sunk += 1
+        else:
+            print("A ship was shot")
+    
+    bullets_left -= 1
+
+
+def check_for_game_over():
+
+    global num_of_ships_sunk
+    global num_of_ships
+    global bullets_left
+    global game_over
+
+    if num_of_ships == num_of_ships_sunk:
+        print("Congratulations you won!")
+        game_over = True
+    elif bullets_left <= 0:
+        print("Sorry, you lost! No bullets left, better luck next time!")
+        game_over = True
+
+
 
