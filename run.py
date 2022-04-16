@@ -1,6 +1,3 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
 import random
 import time
 
@@ -67,14 +64,14 @@ def print_grid():
 
     global grid
     global alphabet
-    
-    debug_mode = True
-    alphabet = alphabet[0: len(grid) + 1]
 
-    for row in range(len(grid)):
+debug_mode = True
+alphabet = alphabet[0: len(grid) + 1]
+
+for row in range(len(grid)):
         print(alphabet[row], end=" ")
 
-    for col in range(len(grid[row])):
+for col in range(len(grid[row])):
         if grid[row][col] == "0":
             if debug_mode:
                 print("0", end=" ")
@@ -83,13 +80,13 @@ def print_grid():
         else:
             print(grid[row][col], end=" ")
 
-    print("")
-    
-    print(" ", end=" ")
+print("")
 
-    for i in range(len(grid[0])):
+print(" ", end=" ")
+
+for i in range(len(grid[0])):
         print(str(i), end=" ")
-    print("")
+print("")
 
 
 def try_to_place_ship_on_grid(row, col, direction, length):
@@ -106,17 +103,17 @@ def try_to_place_ship_on_grid(row, col, direction, length):
         if col + length >= grid_size:
             return False
         end_col = col + length
-    
+
     elif direction == "up":
         if row - length < 0:
             return False
         start_row = row - length + 1
-    
+
     elif direction == "down":
         if row + length >= grid_size:
             return False
         end_row = row + length
-    
+
     return validate_grid_and_place_ship(start_col, end_col, start_row, end_row)
 
 
@@ -152,8 +149,9 @@ def accept_valid_bullet_placement():
             continue
         if grid[row][col] == "." or grid[row][col] == "O":
             is_valid_placement = True
-    
+
     return row, col
+
 
 def check_for_ship_sunk(row, col):
 
@@ -171,6 +169,7 @@ def check_for_ship_sunk(row, col):
                     if grid[r][c] != "X":
                         return False
     return True
+
 
 def shoot_bullet():
 
@@ -193,7 +192,7 @@ def shoot_bullet():
             num_of_ships_sunk += 1
         else:
             print("A ship was shot")
-    
+
     bullets_left -= 1
 
 
@@ -214,23 +213,29 @@ def check_for_game_over():
 
 def main():
 
- global game_over
+    global game_over
 
-   print("------Welcome to Battelships------")
-   print("You got 50 bullets to take down 8 ships, may the battel begin! Best of luck!")
+    print("------Welcome to Battelships------")
+    print("You got 50 bullets to take down 8 ships, Good luck!")
 
-create_grid()
+    create_grid()
 
-while game_over is False:
+    while game_over is False:
+
         print_grid()
-        print("Number of ships remaning: " + str(num_of_ships - num_of_ships_sunk))
+
+        print("Number of ships left: " + str(num_of_ships - num_of_ships_sunk))
         print("Number of bullets left: " + str(bullets_left))
+
         shoot_bullet()
+
         print("------------------------------")
         print("")
         check_for_game_over()
 
 
 if __name__ == '__main__':
-    """Will only be called when the program is running from terminal or an IDE like PyCharms"""
-    main()
+        """
+        Called when it´s running from terminal or an IDE like PyCharms
+        """
+main()
